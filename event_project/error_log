@@ -1,0 +1,21 @@
+[25-Mar-2016 16:44:14 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:44:26 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:44:58 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:45:15 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:45:27 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:46:17 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:47:43 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:49:59 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:50:21 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:50:55 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:52:24 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:53:58 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:54:39 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:55:02 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:55:15 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:55:51 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:56:55 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:57:03 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[25-Mar-2016 16:57:35 UTC] PHP Fatal error:  Call to a member function result() on a non-object in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 256
+[26-Mar-2016 12:40:46 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 314
+[26-Mar-2016 12:41:15 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/ecxyxtce/public_html/samad/event_project/application/controllers/Admin.php on line 314

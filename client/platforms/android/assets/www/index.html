@@ -1,0 +1,250 @@
+	
+         
+ <! DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css" />
+      <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css" />
+      <link rel="stylesheet" href="font-awesome/css/font-awesome.css" />
+      <script type="text/javascript" src="jquery.js"></script>
+      <script src="jquery.mobile-1.4.5.min.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzQYXYGrK-9Wv289cM5XGIXl0SH24ZNlg &callback=initMap"
+  type="text/javascript"></script>
+  <script src="bootstrap/js/bootstrap.js"></script>
+        </script>
+        <script>
+         function initMap() {
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: new google.maps.LatLng(39.183608, -96.571669),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          });
+
+
+
+
+          var infowindow = new google.maps.InfoWindow();
+          var request = $.ajax({ 
+              type: "POST",
+              url: "http://creativeignite.com/samad/event_project/index.php/admin/get_data",
+              dataType:'json'
+           });
+
+          var marker="";
+            request.done(function(resp){
+              if(resp=="error"){
+                
+              }else{
+				
+				$('.total_evnt').html(resp.length);
+                $.each(resp,function(key , val){
+                    marker = new google.maps.Marker({
+                      position: new google.maps.LatLng(Number(val['longitude']), Number(val['latitude'])),
+                      map: map
+                    });
+
+                      $('#dynamic_buil').append('<li id="goto" data-long="'+val['longitude']+'" data-lat="'+val['latitude']+'"><a href="#">'+val['name']+'</a></li>'); 
+
+
+                    if(val['events'].length>0){
+                      $('#list_ev').empty();
+                      $.each(val['events'],function(ky , vl){
+                       
+                       $('#list_ev').append('<li><a href="#">'+vl['title']+' <span class="ui-li-count">Date : '+vl['time']+'</span></a></li>');
+                       
+                       var description ="<strong>Title :</strong> "+ vl['title']+"<br /> <strong>Description :</strong> "+ vl['description']+"<br /><strong> Time : </strong> "+vl['time'];
+                       
+                       google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                          return function() {
+                            infowindow.setContent(description);
+                            infowindow.open(map, marker);
+                          }
+                        })(marker)); 
+
+
+                      });
+                      
+                       
+                    }else{
+                    }
+                });
+                $('#list_ev').listview('refresh');
+                $('#dynamic_buil').listview("refresh");
+              }
+            });
+
+      function newLocation(newLat,newLng)
+      {
+        map.setCenter({
+          lat : newLat,
+          lng : newLng
+        });
+      }
+
+        $(document).ready(function(){
+           $('#dynamic_buil').hide();
+          $(document).on('click','#goto',function(){
+           		newLocation(Number($(this).data('long')), Number($(this).data('lat')));
+           		  $('#dynamic_buil').hide();    
+          });
+        
+        
+        	 $( "#dynamic_buil" ).on( "listviewbeforefilter", function ( e, data ) {        
+		          $('#dynamic_buil').show();           
+		      })
+        	
+        	
+        
+       		var c_long ,c_latt;
+       		var watchID = "";	
+          $('.curr_loca').click(function(){
+				
+				function onSuccess(position) {
+					c_long=position.coords.longitude;
+					c_latt=position.coords.latitude;
+					//alert(c_long+"  "+c_latt);
+					newLocation(Number(c_latt), Number(c_long));
+					var myLatLng = {
+	                    lat: c_latt,
+	                    lng: c_long
+	                  };
+
+	                  var image = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
+
+	                  var marker = new google.maps.Marker({
+	                    position: myLatLng,
+	                    map: map,
+	                    animation: google.maps.Animation.DROP,
+	                    icon: image,
+	                    title: 'My Location!'
+	                  });
+	                  navigator.geolocation.clearWatch(watchID);
+				}
+				
+				function onError(error) {
+				    //alert('code: '    + error.code    + '\n' +    'message: ' + error.message + '\n');
+				}
+				var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 5000, enableHighAccuracy: true  });			
+				
+				
+          });
+
+          $('.refresh_app').click(function(){
+              location.reload();
+          });
+
+
+        });
+         
+
+        }  
+
+       
+        </script>
+    </head>
+    <style>
+    #map {
+        height: 350px;
+        width: 100%;
+      }
+      a{
+      	text-decoration: none !important;
+      	color: #000000 !important;
+      }
+      a:hover{
+      	color: #1f1b1f !important;
+      }
+      #list_ev .ui-btn-icon-right::after{
+      	display: none;
+      }
+      
+      .ui-listview .ui-btn-icon-right .ui-li-count {
+	    right: 1em !important;
+	}
+      
+      
+      .ui-page-theme-a .ui-btn.ui-btn-active, html .ui-bar-a .ui-btn.ui-btn-active, html .ui-body-a .ui-btn.ui-btn-active, html body .ui-group-theme-a .ui-btn.ui-btn-active, html head + body .ui-btn.ui-btn-a.ui-btn-active, .ui-page-theme-a .ui-checkbox-on::after, html .ui-bar-a .ui-checkbox-on::after, html .ui-body-a .ui-checkbox-on::after, html body .ui-group-theme-a .ui-checkbox-on::after, .ui-btn.ui-checkbox-on.ui-btn-a::after, .ui-page-theme-a .ui-flipswitch-active, html .ui-bar-a .ui-flipswitch-active, html .ui-body-a .ui-flipswitch-active, html body .ui-group-theme-a .ui-flipswitch-active, html body .ui-flipswitch.ui-bar-a.ui-flipswitch-active, .ui-page-theme-a .ui-slider-track .ui-btn-active, html .ui-bar-a .ui-slider-track .ui-btn-active, html .ui-body-a .ui-slider-track .ui-btn-active, html body .ui-group-theme-a .ui-slider-track .ui-btn-active, html body div.ui-slider-track.ui-body-a .ui-btn-active{
+      	background-color: inherit;
+    border-color: transparent !important;
+    text-shadow: 0 0px 0 #059 !important;
+      }
+
+		.ui-page-theme-a .ui-btn.ui-btn-active, html .ui-bar-a .ui-btn.ui-btn-active, html .ui-body-a .ui-btn.ui-btn-active, html body .ui-group-theme-a .ui-btn.ui-btn-active, html head + body .ui-btn.ui-btn-a.ui-btn-active, .ui-page-theme-a .ui-checkbox-on::after, html .ui-bar-a .ui-checkbox-on::after, html .ui-body-a .ui-checkbox-on::after, html body .ui-group-theme-a .ui-checkbox-on::after, .ui-btn.ui-checkbox-on.ui-btn-a::after, .ui-page-theme-a .ui-flipswitch-active, html .ui-bar-a .ui-flipswitch-active, html .ui-body-a .ui-flipswitch-active, html body .ui-group-theme-a .ui-flipswitch-active, html body .ui-flipswitch.ui-bar-a.ui-flipswitch-active, .ui-page-theme-a .ui-slider-track .ui-btn-active, html .ui-bar-a .ui-slider-track .ui-btn-active, html .ui-body-a .ui-slider-track .ui-btn-active, html body .ui-group-theme-a .ui-slider-track .ui-btn-active, html body div.ui-slider-track.ui-body-a .ui-btn-active{
+		  background-color: #eaeaea !important;
+		}
+
+ 	.da form{
+		margin: 0px !important;
+	}
+    </style>
+    <body>
+        <div data-role="page">
+			
+		  <div data-role="panel" id="myPanel" style="background:#eaeaea ">  
+		    <ul class="list-group">
+			  <li class="list-group-item">
+			    <span class="badge total_evnt">14</span>
+			    <a href="#all_ev_page">Events</a>	
+			  </li>
+			</ul>
+		  </div> 	
+
+          <div data-role="header">
+            <a href="#myPanel" style="margin-left: 10px; color: #000000 !important;" class="btn btn-default"><strong><span class="fa fa-list"></span></strong></a> <h1>Event Manager</h1>
+          </div><!-- /header -->
+
+          <div role="main" class="ui-content">
+            
+            
+            
+            <div style="position: relative">
+            <div style="position: absolute; z-index: 1000; width: 100% !important;" class="da">
+				<ul data-role="listview" data-filter="true" id="dynamic_buil" data-filter-reveal="true" data-filter-placeholder="Search building..." data-inset="true" style="width: 100%"></ul>
+	         </div>
+            </div>
+            <div style="position: relative; margin-top: 60px;"> 
+              <div id="map">
+              	
+              </div>
+              <div style="position: absolute;bottom:130;right:10;z-index: 1000 !important;">
+              	  <div class="refresh_app" style="margin-bottom: 7px;background: #fff !important;padding: 4px;"><a href="#"><img src="reload.png" style="width:auto;height:20px"></a></div>
+                  <div class="curr_loca" style="background: #fff !important;padding: 4px;"><a href="#"><img src="latest.png" style="width:auto;height:20px"></a></div>
+              </div>
+          </div>
+            
+          </div><!-- /content -->
+
+        </div><!-- /page -->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <div data-role="page" id="all_ev_page">
+			
+		  <div data-role="header">
+            <a href="javascript: window.history.go(-1)" style="margin-left: 10px; color: #000000 !important;" class="btn btn-default"><strong><span class="fa fa-arrow-circle-o-left"></span></strong></a> <h1>All Events</h1>
+          </div><!-- /header -->
+
+          <div role="main" class="ui-content">
+            <ul data-role="listview" id="list_ev" data-count-theme="b" data-inset="true">
+			    <li><a href="#">Event 1 <span class="ui-li-count">Date : 2016-03-25 14:44:32</span></a></li>
+			</ul>
+            
+            
+          </div><!-- /content -->
+
+        </div><!-- /page -->
+
+
+
+    </body>
+</html>

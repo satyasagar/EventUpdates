@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <title></title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css" />
+		<link  rel="stylesheet" href="style.css"/>
+	<script src="jquery-1.11.1.min.js"></script>
+	<script src="jquery.mobile-1.4.5.min.js"></script>
+      <script type="text/javascript" src="mapcontrol.ashx"></script>
+
+      <script type="text/javascript">
+          var map = null, infobox, dataLayer;
+		  var searchs_att = [];
+          function GetMap() {
+              // Initialize the map
+              map = new Microsoft.Maps.Map(document.getElementById("myMap"),
+                         { credentials: "Avda2-mw6qSSb9MtR_CXGYgv9eNmhU-H6AdY4Pkt0vDpt5JBi4_IdiBIjT0M2Hx3", zoom: 8, center: new Microsoft.Maps.Location(39.183608, -96.571669) });
+
+              dataLayer = new Microsoft.Maps.EntityCollection();
+              map.entities.push(dataLayer);
+
+              var infoboxLayer = new Microsoft.Maps.EntityCollection();
+              map.entities.push(infoboxLayer);
+
+              infobox = new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(0, 0), { visible: false, offset: new Microsoft.Maps.Point(0, 20) });
+              infoboxLayer.push(infobox);
+
+              AddData();
+          }
+          
+          
+          $(document).ready(function(){
+          	$(document).on('click','#goto',function(){
+          		map.setView({center:new Microsoft.Maps.Location(Number($(this).data('long')), Number($(this).data('lat')))});
+          	});
+          });
+
+          function AddData() {
+          		
+			  //var offset = new Microsoft.Maps.Point(0, 5); 
+			  //var pushpinOptions = {icon:'images/blue-pin.png', text : '1', height:150,width:150,visible: true, textOffset: offset}; 	
+          		
+          		
+          		
+          		
+          	search_att=[];
+          	var request = $.ajax({ 
+				type: "POST",
+				url: "http://creativeignite.com/samad/event_project/index.php/admin/get_data",
+				dataType:'json'
+			});
+			request.done(function(resp){
+				searchs_att.push(resp);
+				if(resp=="error"){
+					
+				}else{
+				//	$('#dynamic_buil').empty();
+					$.each(resp,function(key , val){
+						
+							
+							$('#dynamic_buil').append('<li id="goto" data-long="'+val['longitude']+'" data-lat="'+val['latitude']+'"><a href="#">'+val['name']+'</a></li>');
+						
+						
+							  var pin1 = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(Number(val['longitude']), Number(val['latitude'])),{
+				                text : val['name'],    //The text for the label
+				                typeName : 'labelPin',     //Assign a CSS class to the pin
+				                textOffset : new Microsoft.Maps.Point(-15,40)
+				              });
+			              if(val['events'].length>0){
+			              	$.each(val['events'],function(ky , vl){
+			              		pin1.Title = "<strong> Title :</strong> "+vl['title'];
+			              		pin1.Description ="<strong>Description :</strong> "+ vl['description']+"<br /> <br /><strong> Time : </strong> "+vl['time'];
+			              	});
+			              }else{
+			                  	pin1.Title = "Sorry no Event Assigned";
+			              		pin1.Description = "Not Found";
+			              }
+			              
+			              
+			              Microsoft.Maps.Events.addHandler(pin1, 'click', displayInfobox);
+			              dataLayer.push(pin1);	
+			              map.entities.push(pin1);
+			              
+					});
+					$('#dynamic_buil').listview("refresh");
+				}
+				
+			});
+              
+          }
+
+          function displayInfobox(e) {
+              if (e.targetType == 'pushpin') {
+                  infobox.setLocation(e.target.getLocation());
+                  infobox.setOptions({ visible: true, title: e.target.Title, description: e.target.Description });
+              }
+          }  
+      </script>
+      <style>
+      	.OverlaysTL,.MicrosoftMap .OverlaysBL {
+      		display: none;	
+      	}
+      	.labelPin div{
+      		background: #db9e71 !important ;
+      		color: #2d2d2d !important;
+      		
+      		width: auto !important;
+      		box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+      		padding: 4px;
+      		font-size: 12px !important;
+      		border-radius:0px !important; 
+      	}
+      	.labelPin{
+      		overflow: visible !important;
+      		width: auto !important;
+      		border-radius:0px !important;
+      	}
+      </style>
+   </head>
+   <body onload="GetMap();">
+     
+	  
+   	
+	
+   	<div data-role="page">
+
+	<div data-role="header">
+		<h1><img src="img/icon.png" style="width: auto; height:25px;"> Event Manager</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<ul data-role="listview" data-filter="true" id="dynamic_buil" data-filter-reveal="true" data-filter-placeholder="Search building..." data-inset="true"></ul>
+		 <div id='myMap' style="position:relative;width:100%;height:400px;"></div>
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		 <div id="social">
+		 <a class="facebookBtn smGlobalBtn" href="#" ></a>
+			<a class="twitterBtn smGlobalBtn" href="#" ></a>
+			<a class="googleplusBtn smGlobalBtn" href="#" ></a>
+			<a class="linkedinBtn smGlobalBtn" href="#" ></a>
+			<a class="pinterestBtn smGlobalBtn" href="#" ></a>
+		</div>
+	</div><!-- /footer -->
+</div><!-- /page -->
+   	
+   </body>
+</html>

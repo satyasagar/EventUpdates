@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.hybridapps.mobionic" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Yazeed</name>
+    
+    <description>
+Yazeed Ali Faris Ayasra
+    </description>
+    
+    <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="org.apache.cordova.device-motion" />
+    <gap:plugin name="org.apache.cordova.device-orientation" />
+    <gap:plugin name="org.apache.cordova.console" />
+    <gap:plugin name="org.apache.cordova.dialogs" />
+    <gap:plugin name="org.apache.cordova.geolocation" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" />
+    <gap:plugin name="org.apache.cordova.vibration" />
+    <gap:plugin name="com.ionic.keyboard"/>
+
+    <gap:plugin name="de.appplant.cordova.plugin.email-composer" />
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" />
+
+    <gap:plugin name="com.pushwoosh.plugins.pushwoosh"/>
+    
+    <content src="index.html" />
+    <access origin="*" />
+    <access origin="http://example.com" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+
+    <!-- Don't store local date in an iCloud backup. Turn this to "cloud" to enable storage 
+         to be sent to iCloud. Note: enabling this could result in Apple rejecting your app.
+    -->
+    <preference name="BackupWebStorage" value="none" />
+
+    <feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" onload="true" />
+    </feature>
+    
+</widget>
